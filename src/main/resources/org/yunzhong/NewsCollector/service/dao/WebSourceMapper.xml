@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.yunzhong.NewsCollector.service.dao.WebSourceMapper">
+    <resultMap id="BaseResultMap"
+        type="org.yunzhong.NewsCollector.entity.WebSource">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="endpoint" jdbcType="VARCHAR" property="endpoint" />
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs"
+        type="org.yunzhong.NewsCollector.entity.WebSource">
+        <result column="icon" jdbcType="LONGVARBINARY" property="icon" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, name, endpoint
+    </sql>
+    <sql id="Blob_Column_List">
+        icon
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long"
+        resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List" />
+        ,
+        <include refid="Blob_Column_List" />
+        from web_source
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from web_source
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" parameterType="org.yunzhong.NewsCollector.entity.WebSource">
+        insert into web_source (id, name, endpoint,
+        icon)
+        values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR},
+        #{endpoint,jdbcType=VARCHAR},
+        #{icon,jdbcType=LONGVARBINARY})
+    </insert>
+    <insert id="insertSelective" parameterType="org.yunzhong.NewsCollector.entity.WebSource">
+        insert into web_source
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="endpoint != null">
+                endpoint,
+            </if>
+            <if test="icon != null">
+                icon,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="endpoint != null">
+                #{endpoint,jdbcType=VARCHAR},
+            </if>
+            <if test="icon != null">
+                #{icon,jdbcType=LONGVARBINARY},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="org.yunzhong.NewsCollector.entity.WebSource">
+        update web_source
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="endpoint != null">
+                endpoint = #{endpoint,jdbcType=VARCHAR},
+            </if>
+            <if test="icon != null">
+                icon = #{icon,jdbcType=LONGVARBINARY},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="org.yunzhong.NewsCollector.entity.WebSource">
+        update web_source
+        set name = #{name,jdbcType=VARCHAR},
+        endpoint = #{endpoint,jdbcType=VARCHAR},
+        icon = #{icon,jdbcType=LONGVARBINARY}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="org.yunzhong.NewsCollector.entity.WebSource">
+        update web_source
+        set name = #{name,jdbcType=VARCHAR},
+        endpoint = #{endpoint,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+</mapper>

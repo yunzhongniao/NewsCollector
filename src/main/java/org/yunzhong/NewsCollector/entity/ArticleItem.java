@@ -6,7 +6,7 @@ import lombok.Data;
 public class ArticleItem {
     private Long id;
     private Integer number;
-    private String image;
-    private String imageName;
+    private String imageId;
+    private String imageDesc;
     private String description;
 }

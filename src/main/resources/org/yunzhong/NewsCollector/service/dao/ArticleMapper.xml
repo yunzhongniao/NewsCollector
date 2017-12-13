@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.yunzhong.NewsCollector.service.dao.ArticleMapper">
+    <resultMap id="BaseResultMap" type="org.yunzhong.NewsCollector.entity.Article">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="title" jdbcType="VARCHAR" property="title" />
+        <result column="source_id" jdbcType="BIGINT" property="sourceId" />
+        <result column="creater" jdbcType="VARCHAR" property="creater" />
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs"
+        type="org.yunzhong.NewsCollector.entity.Article">
+        <result column="summary" jdbcType="LONGVARCHAR" property="summary" />
+        <result column="conclusion" jdbcType="LONGVARCHAR"
+            property="conclusion" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, title, source_id, creater
+    </sql>
+    <sql id="Blob_Column_List">
+        summary, conclusion
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long"
+        resultMap="ResultMapWithBLOBs">
+
+        select
+        <include refid="Base_Column_List" />
+        ,
+        <include refid="Blob_Column_List" />
+        from article
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+
+        delete from
+        article
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" parameterType="org.yunzhong.NewsCollector.entity.Article">
+        insert into article (id,
+        title, source_id,
+        creater, summary, conclusion
+        )
+        values
+        (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR},
+        #{sourceId,jdbcType=BIGINT},
+        #{creater,jdbcType=VARCHAR},
+        #{summary,jdbcType=LONGVARCHAR},
+        #{conclusion,jdbcType=LONGVARCHAR}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="org.yunzhong.NewsCollector.entity.Article">
+        insert into article
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="title != null">
+                title,
+            </if>
+            <if test="sourceId != null">
+                source_id,
+            </if>
+            <if test="creater != null">
+                creater,
+            </if>
+            <if test="summary != null">
+                summary,
+            </if>
+            <if test="conclusion != null">
+                conclusion,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="title != null">
+                #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="sourceId != null">
+                #{sourceId,jdbcType=BIGINT},
+            </if>
+            <if test="creater != null">
+                #{creater,jdbcType=VARCHAR},
+            </if>
+            <if test="summary != null">
+                #{summary,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="conclusion != null">
+                #{conclusion,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="org.yunzhong.NewsCollector.entity.Article">
+        update article
+        <set>
+            <if test="title != null">
+                title = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="sourceId != null">
+                source_id = #{sourceId,jdbcType=BIGINT},
+            </if>
+            <if test="creater != null">
+                creater = #{creater,jdbcType=VARCHAR},
+            </if>
+            <if test="summary != null">
+                summary = #{summary,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="conclusion != null">
+                conclusion = #{conclusion,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="org.yunzhong.NewsCollector.entity.Article">
+        update article
+        set title = #{title,jdbcType=VARCHAR},
+        source_id =
+        #{sourceId,jdbcType=BIGINT},
+        creater =
+        #{creater,jdbcType=VARCHAR},
+        summary =
+        #{summary,jdbcType=LONGVARCHAR},
+        conclusion =
+        #{conclusion,jdbcType=LONGVARCHAR}
+        where id =
+        #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="org.yunzhong.NewsCollector.entity.Article">
+        update article
+        set title = #{title,jdbcType=VARCHAR},
+        source_id =
+        #{sourceId,jdbcType=BIGINT},
+        creater =
+        #{creater,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+</mapper>

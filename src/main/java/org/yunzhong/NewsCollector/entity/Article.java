@@ -11,4 +11,7 @@ public class Article {
     private String summary;
     private List<ArticleItem> items;
     private String conclusion;
+    private Long sourceId;
+    private WebSource webSource;
+    private String creater;
 }
