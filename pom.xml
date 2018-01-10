@@ -27,6 +27,7 @@
         <springfox.swagger.version>2.6.1</springfox.swagger.version>
         <druid.version>1.0.18</druid.version>
         <pagehelper.version>4.1.6</pagehelper.version>
+        <jsoup.version>1.11.2</jsoup.version>
     </properties>
 
     <dependencies>
@@ -63,6 +64,11 @@
             <groupId>edu.uci.ics</groupId>
             <artifactId>crawler4j</artifactId>
             <version>${crawler4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>${jsoup.version}</version>
         </dependency>
         <!-- swagger2 rest api -->
         <dependency>
